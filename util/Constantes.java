@@ -15,6 +15,7 @@ public class Constantes {
     public static final String NUMERO_DE_VIDAS = "\u001B[31mNumero de vidas QUE TE QUEDAN: \u001B[0m";
     public static final String MENSAJE_BOMBA = "\u001B[41mBOOOOMM, HAS PERDIDO UNA VIDA \u001B[0m";
     public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_LETRA_VERDE = "\u001B[32m";
     public static final String ANSI_BLANCO_FONDO = "\u001B[47m";
 
 

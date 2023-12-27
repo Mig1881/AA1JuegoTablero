@@ -18,8 +18,15 @@ public class JuegoTablero {
     private int vidas;
     private int numeroVidas1;
     private int numeroVidas2;
+    private String Dificultad;
+    private String Dificultad2;
+
+    private int numEnemigos;
+    private int numEnemigos2;
     boolean juegoTerminadoJ1;
     boolean juegoTerminadoJ2;
+    boolean numEnemigosCorrecto;
+    boolean numEnemigosCorrecto2;
 
     Scanner teclado = new Scanner(System.in);
     Random generador = new Random();
@@ -33,6 +40,9 @@ public class JuegoTablero {
     public void jugar() {
         crearTableros();
         pedirNombreJugador();
+        elegirNivelDificultad(JUGADOR1);
+        elegirNivelDificultad(JUGADOR2);
+
         inicializacionJuego();
         do {
 
@@ -74,6 +84,8 @@ public class JuegoTablero {
             System.out.print("¿Quereis volver a jugar (S/N)? ");
             String respuesta = teclado.nextLine();
             if (respuesta.equalsIgnoreCase("S")) {
+                elegirNivelDificultad(JUGADOR1);
+                elegirNivelDificultad(JUGADOR2);
                 inicializacionJuego();
             } else {
                 break;
@@ -146,6 +158,60 @@ public class JuegoTablero {
         nombreJugador2 = teclado.nextLine();
 
     }
+
+    private void elegirNivelDificultad(String jugador) {
+
+        numEnemigosCorrecto2 = false;
+        if (jugador.equals(JUGADOR1)) {
+            numEnemigosCorrecto = false;
+            do {
+                System.out.print(ANSI_LETRA_VERDE + nombreJugador1 + ANSI_RESET  + " elige el Nivel de difilcutad, elige entre los valores 1,2,3: ");
+                Dificultad = teclado.nextLine();
+                switch (Dificultad) {
+                    case "1":
+                        numEnemigos = 8;
+                        numEnemigosCorrecto = true;
+                        break;
+                    case "2":
+                        numEnemigos = 9;
+                        numEnemigosCorrecto = true;
+                        break;
+                    case "3":
+                        numEnemigos = 10;
+                        numEnemigosCorrecto = true;
+                        break;
+                    default:
+                        System.out.println("Valor no correcto");
+                }
+
+            } while (!numEnemigosCorrecto);
+        } else {
+            numEnemigosCorrecto2 = false;
+            do {
+                //System.out.println(ANSI_BLANCO_FONDO + nombreJugador1 + MENSAJE_FINAL);
+                System.out.print(ANSI_LETRA_VERDE + nombreJugador2 + ANSI_RESET + " elige el Nivel de difilcutad, elige entre 1,2,3: ");
+                Dificultad2 = teclado.nextLine();
+                switch (Dificultad2) {
+                    case "1":
+                        numEnemigos2 = 8;
+                        numEnemigosCorrecto2 = true;
+                        break;
+                    case "2":
+                        numEnemigos2 = 9;
+                        numEnemigosCorrecto2 = true;
+                        break;
+                    case "3":
+                        numEnemigos2 = 10;
+                        numEnemigosCorrecto2 = true;
+                        break;
+                    default:
+                        System.out.println("Valor no correcto");
+                }
+
+            } while (!numEnemigosCorrecto2);
+        }
+
+    }
     private void colocarCasillaDeSalida() {
         int i, j;
         //Generamos casilla salida Jugador 1
@@ -163,7 +229,7 @@ public class JuegoTablero {
     }
     private void colocarEnemigos(){
         int x = 0, i = 0, j;
-        for (x =0; x < 8; x++) {
+        for (x =0; x < numEnemigos; x++) {
             do {
                 i = generador.nextInt(6);
                 j = generador.nextInt(6);
@@ -171,7 +237,7 @@ public class JuegoTablero {
             tableroJugador1[i][j]=FICHA_ENEMIGO1;
         }
         int y;
-        for (y =0; y < 8; y++) {
+        for (y =0; y < numEnemigos2; y++) {
             do {
                 i = generador.nextInt(6);
                 j = generador.nextInt(6);
