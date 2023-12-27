@@ -246,7 +246,27 @@ public class JuegoTablero {
         }
 
     }
+    private void colocarVidasExtra(){
+        int x = 0, i = 0, j;
+        for (x =0; x < 2; x++) {
+            do {
+                i = generador.nextInt(6);
+                j = generador.nextInt(6);
+            } while ((!tableroJugador1[i][j].equals(CASILLA_VACIA)) || (tableroJugador1[i][j].equals(CASILLA_SALIDA))
+                    || (tableroJugador1[i][j].equals(FICHA_ENEMIGO1)));
+            tableroJugador1[i][j]=FICHA_VIDA_EXTRA;
+        }
+        int y;
+        for (y =0; y < 2; y++) {
+            do {
+                i = generador.nextInt(6);
+                j = generador.nextInt(6);
+            } while ((!tableroJugador2[i][j].equals(CASILLA_VACIA)) || (tableroJugador2[i][j].equals(CASILLA_SALIDA))
+                    || (tableroJugador1[i][j].equals(FICHA_ENEMIGO2)));
+            tableroJugador2[i][j]=FICHA_VIDA_EXTRA;
+        }
 
+    }
     private void colocarJugador(){
         int i, j;
         //Colocamos al Jugador1
@@ -267,6 +287,7 @@ public class JuegoTablero {
         colocarCasillaDeSalida();
         colocarJugador();
         colocarEnemigos();
+        colocarVidasExtra();
     }
 
 
@@ -481,6 +502,11 @@ public class JuegoTablero {
                             juegoTerminadoJ1 = true;
                             // TODO PODRIA VISUALIZAR ALGO ESPECIAL, PENSAR EN QUE
                         }
+                    } else {
+                        if (tableroJugador1[coordCalculadaI][coordCalculadaJ].equals(FICHA_VIDA_EXTRA)) {
+                            numeroVidas1++;
+                            System.out.println(MENSAJE_HAS_GANADO_UNA_VIDA);
+                        }
                     }
                 }
                 if (!juegoTerminadoJ1) {
@@ -689,6 +715,11 @@ public class JuegoTablero {
                             System.out.println(ANSI_BLANCO_FONDO + nombreJugador2 + MENSAJE_FINAL);
                             juegoTerminadoJ2 = true;
                             // TODO PODRIA VISUALIZAR ALGO ESPECIAL, PENSAR EN QUE
+                        }
+                    } else {
+                        if (tableroJugador2[coordCalculadaI][coordCalculadaJ].equals(FICHA_VIDA_EXTRA)) {
+                            numeroVidas2++;
+                            System.out.println(MENSAJE_HAS_GANADO_UNA_VIDA);
                         }
                     }
                 }
